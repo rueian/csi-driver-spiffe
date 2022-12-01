@@ -20,6 +20,7 @@ import (
 	"context"
 	"crypto"
 	"crypto/x509"
+	"crypto/x509/pkix"
 	"encoding/pem"
 	"fmt"
 	"net/url"
@@ -273,7 +274,8 @@ func (d *Driver) generateRequest(meta metadata.Metadata) (*manager.CertificateRe
 
 	return &manager.CertificateRequestBundle{
 		Request: &x509.CertificateRequest{
-			URIs: []*url.URL{uri},
+			URIs:    []*url.URL{uri},
+			Subject: pkix.Name{CommonName: fmt.Sprintf("%s %s %s", d.trustDomain, saNamespace, saName)},
 		},
 		IsCA:      false,
 		Namespace: saNamespace,
