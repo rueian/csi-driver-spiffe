@@ -93,7 +93,7 @@ func (i *internal) Evaluate(req *cmapi.CertificateRequest) error {
 
 	// if the csr contains any other options set, error
 	if len(csr.DNSNames) > 0 || len(csr.IPAddresses) > 0 ||
-		len(csr.Subject.CommonName) > 0 || len(csr.EmailAddresses) > 0 {
+		len(csr.EmailAddresses) > 0 {
 		return fmt.Errorf("forbidden extensions, DNS=%q IPs=%q CommonName=%q Emails=%q",
 			csr.DNSNames, csr.IPAddresses, csr.Subject.CommonName, csr.EmailAddresses)
 	}
